@@ -41,7 +41,7 @@ const openai = new OpenAI({
 
 app.post("/api/create-excuse", async (req, res) => {
     try {
-        const { situation, excuseType } = req.body
+        const { excuseType, excuseTarget, situation } = req.body
 
         if (!situation) {
             return res.status(400).json({ error: "A situation is needed to make an excuse for" })
@@ -49,7 +49,7 @@ app.post("/api/create-excuse", async (req, res) => {
         const messages = [
             {
                 role: "user",
-                content: `Give an excuse that a 10x full-stack developer will give in ${excuseType || "Normal"} tone for the following situation:
+                content: `Give an excuse that a 10x full-stack developer will give in ${excuseType || "Normal"} tone to ${excuseTarget || "stranger"} for the following situation:
             \n \`\`\`${situation || ""}\n \`\`\`,
             `
             },
